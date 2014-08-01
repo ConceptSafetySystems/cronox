@@ -1,0 +1,45 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_reports') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">Backup History for {{ serverName }}</h1>
+		</div>
+		
+	</header>
+	<div class="inner-content-wrapper">
+		{% if reports is defined %}
+			<table>
+				<tr>
+					<th>Started At</th>
+					<th>Ended At</th>
+					<th>Duration</th>
+					<th>Status</th>
+					<th>Actions</th>
+				</tr>
+					{% for report in reports %}
+						<tr style="border-bottom:1px solid white;">
+							<td>{{report.start}}</td>
+							<td>{{report.finish}}</td>
+							<td>{{report.duration}}</td>
+							{% if report.status == "Success" %}
+								<td style="background-color:green;color: white">OK</td>
+							{% elseif (report.status == "ERROR" or report.status == "CRITICAL") %}
+								<td style="background-color:red; color:white">CRITICAL</td>
+							{% else %}
+								<td style="background-color:orange;color:white">{{report.status}}</td>
+							{% endif %}
+							<td style="text-align:left;"><a href="{{ path('detail_report', {'id': report.id} ) }}">Details</a></td>
+						</tr>
+					{% endfor %}
+			</table>
+		{% else %}
+			<div class="empty-state">
+				<h3>You have no status yet.</h3>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}

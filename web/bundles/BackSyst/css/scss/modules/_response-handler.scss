@@ -1,0 +1,22 @@
+.empty-state{
+	padding: 20px;
+	
+	text-align: center;
+	color: $grey;
+}
+
+.error-state{
+	padding: 20px;
+	margin-top: 0;
+
+	background: $lightest-grey;
+	color: $light-red;
+}
+
+.success-state{
+	padding: 20px;
+	margin-top: 0;
+
+	background: $lightest-grey;
+	color: $dark-green;
+}

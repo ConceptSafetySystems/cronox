@@ -1,0 +1,43 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_machines') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">Connection Results</h1>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td>{{ machine.name }}</td>
+			</tr>
+			<tr>
+				<td>Host:</td>
+				<td>{{machine.host}}</td>
+			</tr>
+			<tr>
+				<td>User:</td>
+				<td>{{machine.user}}</td>
+			</tr>
+			<tr>
+				<td>Results:</td>
+				<td>
+					{% if success == true %}
+						<span style="color:green">SUCCESS</span>
+					{% else %}
+						<span style="color:red">FAILED - {{ error }}</span>
+					{% endif %}
+				</td>
+			</tr>
+			{% for key, log in logs %}
+				<tr>
+					<td> {% if key == 2 %} SSH LOG: {% endif %}</td>
+					<td>{{ log }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+{% endblock %}

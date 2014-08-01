@@ -1,0 +1,22 @@
+.user{
+	display: inline-block;
+	float: right;
+	
+	padding: 10px 0;
+}
+
+.user__name, .user__actions{
+	float: left;
+	padding: 0 10px;
+}
+
+.user__name{
+	display: inline-block;
+	margin: 0;
+
+	border-right: 1px solid $lighter-grey;
+}
+
+.user__actions{
+	@extend %default-font-config;
+}

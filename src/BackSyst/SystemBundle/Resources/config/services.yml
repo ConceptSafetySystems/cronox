@@ -1,0 +1,30 @@
+parameters:
+    bcrypt.class:      BackSyst\SystemBundle\Services\Bcrypt
+    session_handler.class:    BackSyst\SystemBundle\Services\SessionHandler
+    ssh_connect.class:    BackSyst\SystemBundle\Services\SecureShellConnect
+    token_listener.class:  BackSyst\SystemBundle\EventListener\TokenListener
+
+services:
+    bcrypt:
+        class:            "%bcrypt.class%"
+        arguments:
+            rounds:    5
+    session_handler:
+        class:            "%session_handler.class%"
+        arguments:
+            em: @doctrine.orm.entity_manager
+            session: @session
+            container: @service_container
+    ssh_connect:
+        class:            "%ssh_connect.class%"
+        arguments:
+            em: @doctrine.orm.entity_manager
+            session: @session
+            container: @service_container
+    tokens_listener:
+        class:            "%token_listener.class%"
+        arguments:
+            em: @doctrine.orm.entity_manager
+            container: @service_container
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

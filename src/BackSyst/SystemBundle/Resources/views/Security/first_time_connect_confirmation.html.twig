@@ -1,0 +1,30 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_machines') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">First Connection Confirmation</h1>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		<p>The authenticity of the host '{{ host }}({{ hostIp }})' can't be established.</p>
+		<p>Are you sure you want to continue connecting?</p>
+		<form action="{{ path('authorize_host') }}" method="POST">
+			<input type="hidden" name="isAuthorized" value="1">
+			<input type="hidden" name="publicKey" value="{{ publicKey }}">
+			<input type="hidden" name="machineId" value="{{ machineId }}">
+			<input type="hidden" name="goToRoute" value="{{ successRoute }}">
+
+			<button class="form-content__buttons--multiple">YES</button>
+		</form>
+		<form action="{{ path('authorize_host') }}" method="POST">
+			<input type="hidden" name="isAuthorized" value="0">
+			<input type="hidden" name="machineId" value="{{ machineId }}">
+			<input type="hidden" name="fromRoute" value="{{ fromRoute }}">
+			<button class="form-content__buttons--multiple">NO</button>
+		</form>
+	</div>
+
+{% endblock %}

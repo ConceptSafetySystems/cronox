@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Account Setup{% endblock %}
+
+{% block body %}
+
+	<div class="vertical-parent bg">
+		<div class="vertical-child">
+			<form class="form-basic" action={{ path('init_save') }} method="POST">
+				<h1>Account Setup</h1>
+				{% if error.login is defined %}
+					<p class="error-state"><i class="fa fa-exclamation-triangle"></i> You must enter a username.</p>
+				{% endif %}
+				{% if error.password is defined %}
+					<p class="error-state"><i class="fa fa-exclamation-triangle"></i> {{ error.password }}</p>
+				{% endif %}
+				{% if error.confirm is defined %}
+					<p class="error-state"><i class="fa fa-exclamation-triangle"></i> Passwords do not match.</p>
+				{% endif %}
+				<input id="login" class="form-basic__input" type="text" name="login" placeholder="Username">
+				<input id="password" class="form-basic__input" type="password" name="password" placeholder="Password">
+				
+				<input id="confirm" class="form-basic__input" type="password" name="confirm" placeholder="Confirm Password">
+				<button class="form-basic__button" type="submit">Setup</button>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

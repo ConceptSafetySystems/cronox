@@ -1,0 +1,42 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_scripts') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">Edit Script</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('delete_script', {'id':script.id}) }}"><i class="fa fa-trash-o"></i> Delete Script</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		{{ form_start (form, {'attr' :{'class' : 'form-content'}}) }}
+		
+			<label for="title" class="form-content__label">title:</label>
+			{{ form_widget (form.title, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Script Title'}}) }}
+
+			<label for="description" class="form-content__label">description:</label>
+			{{ form_widget (form.description, {'attr' :{'class' : 'form-content__input', 'id': 'description', 'placeholder': 'Script Description'}}) }}
+
+			<label for="script" class="form-content__label">Script:</label>
+			{{ form_widget (form.script, {'attr' :{'class' : 'form-content__input--large', 'id': 'script', 'placeholder': 'Script'}}) }}
+
+			{{ form_widget (form.button, {'attr' :{'class' : 'form-content__buttons--single', 'value': 'Save'}}) }}
+
+		{{ form_end (form)}}
+		{# <form class="form-content" action={{ path('update_script') }} method="POST">
+			<p class="display">script id: {{script.id}}</p>
+			<input type="hidden" name="id" value="{{script.id}}">
+			<label for="title" class="form-content__label">title:</label>
+			<input class="form-content__input" type="text" value="{{script.title}}" name="title" placeholder="Script Title">
+			<label for="description" class="form-content__label">description:</label>
+			<textarea class="form-content__input" id="description" name="description" placeholder="Script Description">{{script.description}}</textarea>
+			<label for="script" class="form-content__label">Script:</label>
+			<textarea class="form-content__input--large" id="script" name="script" placeholder="Script">{{script.script}}</textarea>
+			<button class="right button-large" type="submit">Save</button>
+		</form> #}
+	</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+table{
+	width: 100%;
+
+	th, td{
+		padding: 10px;
+		@extend %default-font-config;
+	}
+
+	th{
+		background: $brand-color;
+
+		text-align: left;
+		color: white;
+	}
+}
+
+.table__actions{
+	margin-right: 20px;
+
+	&:hover{
+		text-decoration: underline;
+	}
+}

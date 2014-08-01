@@ -1,0 +1,46 @@
+.inner-header{
+	position: relative;
+	padding: 20px;
+	@include clearfix;
+}
+
+.inner-header__back,
+.iiner-header__title{
+	float: left;
+}
+
+.inner-header__back{
+	display: block;
+	width: $button-back-width;
+	height: $button-back-height;
+
+	padding: 0 12px;
+
+	font-size: 36px;
+	text-align: center;
+
+	@include transition ( background color 0.3s ease-in-out );
+
+	&:hover{
+		background: $brand-color;
+		color: white;
+	}
+}
+
+.inner-header__actions{
+	float: right;
+
+	padding: 13px;
+
+	@extend %default-font-config;
+
+	&:hover{
+		text-decoration: underline;
+	}
+}
+
+.inner-header__title{
+	display: inline-block;
+	margin: 0;
+	padding: 0 10px;
+}

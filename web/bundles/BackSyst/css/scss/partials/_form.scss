@@ -1,0 +1,150 @@
+/*================================================================
+=            Basic Form for Login and Register Screen            =
+================================================================*/
+.form-basic{
+	display: block;
+	width: $form-basic-width;
+
+	margin: 0 auto;
+	padding: 20px;
+
+	background: white;
+}
+
+.form-basic__title{
+	margin-top: 0;
+}
+
+.form-basic__input{
+	display: block;
+	width: 100%;
+
+	padding: 10px;
+	margin-bottom: 10px;
+
+	background: $lightest-grey;
+	border: none;
+
+	@extend %default-font-config;
+
+	&:focus{
+		outline: none;
+	}
+
+	@include placeholder {
+		font-family: $font-body;
+		font-weight: 300;
+		font-size: 16px;
+	};
+
+}
+
+.form-basic__button{
+	padding: 10px;
+	width: 100%;
+}
+
+/*======================================================
+=            Content Form for Inner Content            =
+======================================================*/
+.form-content{
+	@include clearfix;
+}
+
+.form-content__wrapper{
+	display: block;
+	width: 100%;
+
+	@include clearfix;
+}
+
+.form-content__wrapper--inner{
+	float: left;
+	width: $form-content-input-width;
+}
+
+.form-content__label,
+.form-content__input{
+	float: left;
+	padding: 10px;
+	margin-bottom: 20px;
+	@extend %default-font-config;
+}
+
+.form-content__label{
+	width: $form-content-label-width;
+	text-transform: capitalize;
+}
+
+.form-content__label--checkbox{
+	width: auto;
+	margin-right: 20px;
+	
+	@extend .form-content__label;
+}
+
+.form-content__input{
+	width: $form-content-input-width;
+
+	background: $lightest-grey;
+	border: none;
+
+	resize: none;
+
+	&:focus{
+		outline: none;
+	}
+
+	@include placeholder {
+		font-family: $font-body;
+		font-weight: 300;
+		font-size: 16px;
+	};
+}
+
+textarea{
+	&.form-content__input{
+		height: $form-content-normal-input-height;
+	}
+}
+
+.form-content__input--large{
+	height: $form-content-large-input-height !important;
+	@extend .form-content__input;
+}
+
+.form-content__input--full{
+	width: 100%;
+	@extend .form-content__input;
+}
+
+.form-content__input--select{
+	width: $form-content-select-width;
+	margin: 6px 0;
+
+	@extend .form-content__input;
+}
+
+.form-content__input--time{
+	width: $form-content-time-width;
+	margin-right: 20px;
+
+	@extend .form-content__input;
+}
+
+.form-content__input--checkbox{
+	float: left;
+	margin: 13px 0;
+}
+
+.form-content__buttons--single{
+	@extend %right, %button-large;
+}
+
+.form-content__buttons--multiple{
+	margin: 0 20px 20px 0;
+
+	@extend %left, %button-large;
+}
+
+

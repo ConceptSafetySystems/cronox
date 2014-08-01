@@ -1,0 +1,38 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_reports') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">Status Details - 
+			{% if (report.Status == "ERROR" or report.Status == "CRITICAL") %}
+				<span style="color:red">CRITICAL</span>
+			{% elseif report.Status == "Success" %}
+				<span style="color:green">Success</span>
+			{% else %}
+				<span style="color:orange">{{report.Status}}</span>
+			{% endif %}
+			</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('delete_report', {'id':report['Report Id']}) }}"><i class="fa fa-trash-o"></i> Delete Report</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		<table>
+			{% for key,details in report %}
+				<tr style="border-bottom: 1px black solid;">
+					<td style="vertical-align:top"><b>{{key}}</b></td>
+					<td>
+						{{details}}
+						{% if readMore == true and key == "Output" %}
+							<a href="{{ path('read_full_output', { 'id': report['Report Id'] }) }}"> Read More</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+{% endblock %}

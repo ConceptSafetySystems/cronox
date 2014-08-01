@@ -1,0 +1,8 @@
+button{
+	@include button( simple, $brand-color );
+	
+	outline: none;
+	font-family: $font-body;
+	font-weight: 300;
+	font-size: 16px;
+}

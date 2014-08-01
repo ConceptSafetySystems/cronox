@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Backup System{% endblock %}
+
+{% block body %}
+
+	<div class="wrapper">
+		<header class="wrapper__header">
+			<h1 class="wrapper__header--title">Backup System</h1>
+			<div class="user">
+				{% set login = app.session.get('admin') %}
+				<p class="user__name">Hi, {{ login }}!</p>
+				<a class="user__actions" href="{{ path('logout') }}">Logout</a>
+			</div>
+		</header>
+
+		<div class="wrapper__content">
+			<aside class="wrapper__content--sidebar">
+				<ul class="sidebar">
+					<li><a href="{{ path('list_reports') }}"><i class="fa fa-flag"></i>Status</a></li>
+					<li><a href="{{ path('list_scripts') }}"><i class="fa fa-code"></i>Scripts</a></li>
+					<li><a href="{{ path('list_backups') }}"><i class="fa fa-download"></i>Backups</a></li>
+					<li><a href="{{ path('list_machines') }}"><i class="fa fa-sitemap"></i>Remote Machines</a></li>
+					<li><a href="{{ path('login_settings') }}"><i class="fa fa-cog"></i> Login Settings</a></li>
+					<li><a href="{{ path('notifications') }}"><i class="fa fa-envelope"></i> Notifications</a></li>
+					<li><a href="{{ path('private_key') }}"><i class="fa fa-key"></i>SSH Keys</a></li>
+					<li><a href="{{ path('doc_main') }}"><i class="fa fa-file-text"></i> Documentation</a></li>
+				</ul>
+			</aside>
+			<div class="wrapper__content--inner">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+
+		<footer class="wrapper__footer">
+			
+		</footer>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			{# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+			<h1 class="inner-header__title">Login Settings</h1>
+		</div>
+		
+	</header>
+	<div class="inner-content-wrapper">
+		{% if error is defined %}
+			<p class="error-state"><i class="fa fa-exclamation-triangle"></i> {{ error }}</p>
+		{% elseif success_pass is defined %}
+			{% if success_pass == true %}
+				<p class="success-state"><i class="fa fa-check-circle"></i> Your username and password have been updated successfully.</p>
+			{% else %}
+				<p class="success-state"><i class="fa fa-check-circle"></i> Your username has been updated successfully.</p>
+			{% endif %}			
+		{% endif %}
+		<form class="form-content" action="{{ path('login_settings_update') }}" method="POST">
+			<label for="login" class="form-content__label">Current Login Name:</label>
+			<input class="form-content__input" id="login" type="text" name="login" value="{{ login }}" placeholder="Login Name">
+			<label for="current_password" class="form-content__label">Current Password:</label>
+			<input class="form-content__input" id="current_password" type="password" name="current_password" value="" placeholder="Current Password">
+			<label for="new_password" class="form-content__label">New Password:</label>
+			<input class="form-content__input" id="new_password" type="password" name="new_password" value="" placeholder="New Password">
+			<label for="confirm" class="form-content__label">Confirm New Password:</label>
+			<input class="form-content__input" id="confirm" type="password" name="confirm" value="" placeholder="Confirm your New Password">
+			<button class="form-content__buttons--single" type="submit">Save</button>
+		</form>
+	</div>
+
+{% endblock %}

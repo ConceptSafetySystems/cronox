@@ -1,0 +1,47 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			{# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+			<h1 class="inner-header__title">SSH Keys</h1>
+		</div>
+		<div class="right">
+			<a id="generate-pk" class="inner-header__actions" href="#"><i class="fa fa-key"></i> 
+				<span id="original-content">Generate Keys</span>
+				<span id="loading-content" style="display:none">Generating Keys...</span>
+			</a>
+		</div>
+		
+	</header>
+	<div class="inner-content-wrapper">
+		<form class="form-content" action="{{ path('update_private_key') }}" method="POST">
+			{% if error is defined %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i> {{ error }}</p>
+			{% elseif success is defined %}
+				<p class="success-state"><i class="fa fa-check-circle"></i> Private key is valid &amp; saved successfully.</p>
+			{% endif %}
+			
+			<div class="form-content__wrapper">
+				<h2>Private Key <span class="keygen-error" style="color:red; display:none">- Error generating key</span></h2>
+				<textarea id="private-key" class="form-content__input--full" name="private_key" placeholder="Enter your private key" style="height:300px">{{key}}</textarea>
+			</div>
+
+			<div class="form-content__wrapper">
+				<h2>Public Key <span class="keygen-error" style="color:red; display:none">- Error generating key</span></h2>
+				<textarea id="public-key" class="form-content__input--full" placeholder="The public key will be generated from the private key" readonly>{% if pub is defined %}{{ pub }}{% endif %}</textarea>
+			</div>
+
+			<button class="form-content__buttons--single" type="submit">Save</button>
+		</form>
+	</div>
+
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		var GEN_CALL = "{{ path('ajax_pkey_gen') }}";
+	</script>
+	<script src="{{ asset('bundles/BackSyst/js/pkeyGen.js') }}"></script>
+{% endblock %}

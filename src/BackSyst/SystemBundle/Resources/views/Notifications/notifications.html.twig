@@ -1,0 +1,54 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			{# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+			<h1 class="inner-header__title">Notifications</h1>
+		</div>
+		<div class="right">
+			<a id="test-email-link" style="display:none" class="inner-header__actions" href="#"><i class="fa fa-code"></i> 
+				<span id="original-action"> Test Email Address</span>
+				<span id="progress-action" style="display:none"> Sending Email...</span>
+			</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		{{ form_start (form, {'attr' :{'class' : 'form-content'}}) }}
+			{% if not form_errors(form.email) is empty %}
+				{% if test is defined %}
+					<p class="error-state"><i class="fa fa-exclamation-triangle"></i> The email address is empty, so the test failed.</p>
+				{% else %}
+					<p class="error-state"><i class="fa fa-exclamation-triangle"></i> This email address does not seem correct.</p>
+				{% endif %}
+			{% elseif success is defined %}
+				{% if test is defined %}
+					<p class="success-state"><i class="fa fa-check-circle"></i> A test was sent successfully to {{ email }}. Please check if you received it.</p>
+				{% else %}
+					<p class="success-state"><i class="fa fa-check-circle"></i> Your email address was saved successfully.</p>
+				{% endif %}
+			{% endif %}
+			<p id="test-error" class="error-state" style="display:none"><i class="fa fa-exclamation-triangle"></i> The test could not be processed, please check your server configurations.</p>
+			<p id="test-success" class="success-state" style="display:none"><i class="fa fa-check-circle"></i> The test was successful, please check that you have received the email. If not, read the documentation.</p>
+			<div class="form-content__wrapper">
+				<label for="days" class="form-content__label">Email Address:</label>
+				<div class="form-content__wrapper--inner" style="width:580px">
+				{{ form_widget (form.email, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Your email address'}}) }}
+				{{ form_widget (form.button, {'attr' :{'class' : 'form-content__buttons--rightsmall', 'value': 'Save'}}) }}
+				</div>
+			</div>
+		{{ form_end (form)}}
+	</div>
+	
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script type="text/javascript">
+		var AJAX_CALL = "{{ path('ajax_test_email') }}";
+
+		var originalEmail = "{{ email }}";
+		originalEmail = originalEmail.trim();
+	</script>
+	<script src="{{ asset('bundles/BackSyst/js/checkEmail.js') }}"></script>
+{% endblock %}

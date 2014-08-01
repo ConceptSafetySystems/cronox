@@ -1,0 +1,43 @@
+/*=======================================================
+=            Vertical Alignment Helper Class            =
+=======================================================*/
+.vertical-parent{
+	display: table;
+	height: 100%;
+	width: 100%;
+
+	.vertical-child{
+		display: table-cell;
+		width: 100%;
+
+		vertical-align: middle;
+	}
+}
+
+/*============================================
+=            Float Helper Classes            =
+============================================*/
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+/*===============================================
+=            General Helpers Classes            =
+===============================================*/
+.bg{
+	background: $lightest-grey url(../img/geometry.png) repeat;
+}
+
+.display{
+	display: block;
+	padding: 0 10px;
+
+	text-transform: uppercase;
+	text-align: right;
+	color: $dark-blue;
+	@extend %default-font-config;
+}

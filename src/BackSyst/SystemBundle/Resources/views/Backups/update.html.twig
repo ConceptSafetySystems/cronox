@@ -1,0 +1,126 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_backups') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">Edit Scheduled Backup</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('run_script', {'id': backup.id}) }}"><i class="fa fa-code"></i> Test Backup</a>
+			<a class="inner-header__actions" href="{{ path('delete_backup', {'id': backup.id}) }}"><i class="fa fa-trash-o"></i> Delete Backup</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		{% if errorTest is defined%}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i> You cannot run the backup because it is not Active.</p>
+		{% endif %}
+		{{ form_start (form, {'attr' :{'class' : 'form-content'}}) }}
+
+			{% if not form_errors(form.title) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must enter a title.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="title" class="form-content__label">title:</label>
+				{{ form_widget (form.title, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Backup Title'}}) }}
+			</div>
+
+			<div class="form-content__wrapper">
+				<label for="description" class="form-content__label">Description:</label>
+				{{ form_widget (form.description, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Backup Description'}}) }}
+			</div>
+
+			{% if not form_errors(form.server) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must select a remote machine.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="server" class="form-content__label">Server:</label>
+				{{ form_widget (form.server, {'attr' :{'class' : 'form-content__input--select'}}) }}
+			</div>
+
+			{% if not form_errors(form.script) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must select a script to be ran on remote machine.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="script" class="form-content__label">Script:</label>
+				{{ form_widget (form.script, {'attr' :{'class' : 'form-content__input--select'}}) }}
+
+			</div>
+
+			<div class="form-content__wrapper">
+				<label for="script" class="form-content__label">Command Line Arguments:<br/>(Optional)</label>
+				{{ form_widget (form.commandLine, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Eg. -opt arg1 arg2'}}) }}
+			</div>
+
+			<div class="form-content__wrapper">
+				<label for="days" class="form-content__label">Security:</label>
+				<div class="form-content__wrapper--inner" style="width:580px">
+					{{ form_widget (form.isSecureParameters[0], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_isSecureParameters_0" class="form-content__label--checkbox">Use standard parameters</label>
+					{{ form_widget (form.isSecureParameters[1], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_isSecureParameters_1" class="form-content__label--checkbox">Use secure parameters</label>
+				</div>
+			</div>
+
+			{% if not form_errors(form.days) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must select at least one day.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="days" class="form-content__label">Days:</label>
+				<div class="form-content__wrapper--inner" style="width:580px">
+					{{ form_widget (form.days[0], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_0" class="form-content__label--checkbox">Monday</label>
+					{{ form_widget (form.days[1], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_1" class="form-content__label--checkbox">Tuesday</label>
+					{{ form_widget (form.days[2], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_2" class="form-content__label--checkbox">Wednesday</label>
+					{{ form_widget (form.days[3], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_3" class="form-content__label--checkbox">Thursday</label>
+					{{ form_widget (form.days[4], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_4" class="form-content__label--checkbox">Friday</label>
+					{{ form_widget (form.days[5], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_5" class="form-content__label--checkbox">Saturday</label>
+					{{ form_widget (form.days[6], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_days_6" class="form-content__label--checkbox">Sunday</label>
+				</div>
+			</div>
+			
+			{% if not form_errors(form.time) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i> Time is not correct. 24 Hour system is expected.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="time" class="form-content__label">Time:<br/>(24hr format)</label>
+				{{ form_widget (form.time['hour'], {'attr' :{'class' : 'form-content__input--time', 'placeholder': 'Hour'}}) }}
+				{{ form_widget (form.time['minute'], {'attr' :{'class' : 'form-content__input--time', 'placeholder': 'Minutes'}}) }}
+			</div>
+
+			{% if noemail == true %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i> Be aware that you have not setup any email address for notifications to work.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="days" class="form-content__label">Notifications:</label>
+				<div class="form-content__wrapper--inner" style="width:580px">
+					{{ form_widget (form.notifications[0], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_notifications_0" class="form-content__label--checkbox">OK</label>
+					{{ form_widget (form.notifications[1], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_notifications_1" class="form-content__label--checkbox">WARNING</label>
+					{{ form_widget (form.notifications[2], {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+					<label for="form_notifications_2" class="form-content__label--checkbox">CRITICAL</label>
+				</div>
+			</div>
+
+			<div class="form-content__wrapper">
+				<label for="time" class="form-content__label">Is Active:</label>
+				<div class="form-content__wrapper--inner">
+					{{ form_widget (form.isActive, {'attr' :{'class' : 'form-content__input--checkbox'}}) }}
+				</div>
+			</div>
+
+			{{ form_widget (form.button, {'attr' :{'class' : 'form-content__buttons--single', 'value': 'Save'}}) }}
+
+		{{ form_end (form)}}
+	</div>
+
+{% endblock %}
+

@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>NOTIFICATION: {{ report.Status }}</title>
+    </head>
+    <body>
+        <div class="header" style="height: 49px; background-color: grey; padding: 5px; width:70%;margin:0 auto;">
+            {# <img src="{{ logo }}" height="45px" alt="logo"> #}
+        </div>
+        <div class="main-content" style="width: 70%;margin:0 auto;background-color: #f6f6f6;padding: 10px 5px;">
+            {% if (report.Status == "ERROR" or report.Status == "CRITICAL") %}
+                <h2 style="color:red">CRITICAL</h2>
+            {% elseif report.Status == "Success" %}
+                <h2 style="color:green">Success</h2>
+            {% else %}
+                <h2 style="color:orange">{{report.Status}}</h2>
+            {% endif %}
+            Please find below a summary of the report for the latest backup executed on {{ report['Host Name'] }}
+            <table>
+                {% for k,r in report %}
+                    <tr>
+                        <td>{{k}}</td>
+                        <td>{{r}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>

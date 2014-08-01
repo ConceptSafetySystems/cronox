@@ -1,0 +1,5 @@
+app/logs/*
+app/cache/*
+app/sqlite.db.cache
+web/bundles/BackSyst/css/.sass-cache/
+._*

@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+	<div class="vertical-parent bg">
+		<div class="vertical-child">
+			<div class="form-basic" style="width:600px">
+				<h1>Forgot your Password?</h1>
+				<p>Start a SSH connection to the server hosting this client</p>
+				<p>Change Directory to be inside the Backup System root directory</p>
+				<p>Type: <pre>php app/console backsyst:admin:reset</pre></p>
+				<p>Be aware that this will erase your username, password and the SSH Keys associated to your account</p>
+                <p>Once you're done, re-visit the login page, and you'll be automatically prompted to create a new admin password.</p>
+				<p>
+				<a href="{{ path('home') }}">&lt; Back To Login</a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

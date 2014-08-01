@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+	<div class="vertical-parent bg">
+		<div class="vertical-child">
+			<form class="form-basic" action={{ path('login_action') }} method="POST">
+				<h1 class="form-basic__title">Login</h1>
+				{% if error is defined %}
+					<p class="error-state"><i class="fa fa-exclamation-triangle"></i> Username or Password not correct.</p>
+				{% endif %}
+				<input id="login" class="form-basic__input" type="text" name="login" placeholder="Username">
+				<input id="password" class="form-basic__input" type="password" name="password" placeholder="Password">
+				<button class="form-basic__button" type="submit">Login</button>
+				<a style="font-size: small" href="{{ path('login_forgot') }}">Forgot Password</a>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

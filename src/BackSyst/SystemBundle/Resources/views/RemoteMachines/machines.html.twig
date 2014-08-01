@@ -1,0 +1,45 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			{# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+			<h1 class="inner-header__title">Remote Machines</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('edit_machine') }}"><i class="fa fa-plus"></i> Add New Machine</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		{% if machines %}
+			<table>
+				<tr>
+					<th width="140">Name</th>
+					<th>Access</th>
+					<th>Description</th>
+					<th width="180">Actions</th>
+				</tr>
+				{% if machines is defined %}
+					{% for machine in machines %}
+						<tr style="{% if machine.isProblem == true %}color:red;{% endif %}">
+							<td>{{machine.name}}</td>
+							<td>{{machine.user}}@{{machine.host}}</td>
+							<td>{{machine.description}}</td>
+							<td>
+								<a class="table__actions" href="{{ path('edit_machine', {'id':machine.id}) }}">Edit</a>
+								<a class="table__actions" href="{{ path('test_connection_machine', {'id': machine.id}) }}">Test</a>
+							</td>
+						</tr>
+					{% endfor %}
+				{% endif %}
+			</table>
+		{% else %}
+			<div class="empty-state">
+				<h3>You have no machines.</h3>
+			</div>
+		{% endif %}
+	</div>
+	
+
+{% endblock %}

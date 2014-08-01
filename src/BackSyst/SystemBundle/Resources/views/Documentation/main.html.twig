@@ -1,0 +1,142 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+    <header class="inner-header">
+        <div class="left">
+            {# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+            <h1 class="inner-header__title">Documentation</h1>
+        </div>
+
+    </header>
+    <div class="inner-content-wrapper">
+
+        <h2>Scripts</h2>
+        <p>
+			The last line of your script must output a line of result information, which then displayed on the system Status screen.<br/><br/>
+            Each element on the line must be separated by a tab character, usually <b>"\t"</b><br/><br/>
+            Be aware that importing #!/bin/bash requires you to add the '-e' option when using echo:<br/>
+        </p>
+<pre>
+#!/bin/bash
+BACKUP_FILE=/backup/file
+SIZE=$(du -b ${BACKUP_FILE} | sed 's/\([0-9]*\)\(.*\)/\1/')
+echo -e "OK \t ${BACKUP_FILE} \t ${SIZE} \t Details"
+</pre>
+        <p>
+			Which is not necessary when using #!/bin/sh:<br/>
+        </p>
+<pre>
+#!/bin/sh
+BACKUP_FILE=/backup/file
+SIZE=$(du -b ${BACKUP_FILE} | sed 's/\([0-9]*\)\(.*\)/\1/')
+echo "OK \t ${BACKUP_FILE} \t ${SIZE} \t Details"
+</pre>
+        <p>
+            The pattern of the line is the following:<br/><br/>
+            # If everything went fine, your script should print out:<br/>
+        </p>
+<pre><i>OK</i>  [tab]  <i>path/to/destination</i>  [tab]  <i>BackupSizeInBytes</i>  [tab]  <i>Relevant Details</i></pre>
+        <p>
+            # If the script failed<br/>
+        </p>
+<pre><i>ERROR</i>  [tab]  <i>Relavant Details</i></pre>
+        <p>OR</p>
+<pre><i>CRITICAL</i>  [tab]  <i>Relavant Details</i></pre>
+
+        <p>
+            # If there is a non critical issue
+        </p>
+<pre><i>WARNING</i>  [tab]  <i>Relavant Details</i></pre>
+        <h2>Backups</h2>
+        <p>
+			When creating a backup, many characteristics and options are necessessary:<br/><br/>
+
+            # The command line arguments:<br/>
+            These are the options and arguments to be used while running the script. All options and arguments must all be on the same line to work.<br/><br/>
+
+            # Standard and Secure parameters:<br/>
+            If you check Standard Parameters, the command will be triggers as follow:<br/>
+        </p>
+<pre>command -opt1 -opt2 argument1 argument2 argument3</pre>
+        <p>
+			Otherwise, checking Secure parameters saves all parameters in a file. The path to that file will be entered as a command line parameter, which you then manage from inside your script. This prevents other users from seeing sensitive parameters when checking the history or running processes on a UNIX system:
+        </p>
+<pre>command path/to/tmp_arguments_file</pre>
+        <p>
+            The last option is to define if the backup is active or not. You can deactivate and reactivate a backup at any time.<br/>
+            Be aware that if you remove a script and/or server used by a scheduled backup, this one will be automatically disabled, and you will need to reactivate it manually when re-assigning a server and/or script to it.<br/><br/>
+            Also, you won't be able to run a backup test if the backup is not active.
+        </p>
+
+        <h2>Remote Machines</h2>
+        <p>
+            Remote machines must be tested and working prior to being ran by a backup. If this is not done, you will get a CRITICAL error message in the relevant report.
+        </p>
+
+        <h2>Notifications</h2>
+        <p>
+            When setting up a notification email address, you allow the system to send you messages regarding particular backups and status. You can choose, for any of the backup, what status you would like to be reported to you.
+        </p>
+        <p>
+            Notifications are sent via SMTP host 127.0.0.1 (Port 25), but can be changed by editing parameters.yml in app/config.
+        </p>
+        <p>
+            To use an existing email account, make sure you have the following settings right in parameters.yml file:
+        </p>
+<pre>
+mailer_transport: smtp
+mailer_encryption: ssl
+mailer_auth_mode: login
+mailer_host: smtp.gmail.com
+mailer_user: example@gmail.com
+mailer_password: myPassword
+</pre>
+        <p>
+            And that the following lines appear in your app/config/config.yml file:
+        </p>
+<pre>
+swiftmailer:
+    transport: %mailer_transport%
+    encryption: %mailer_encryption%
+    auth_mode: %mailer_auth_mode%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool: {type:memory}
+</pre>
+        <p>
+            If you run a test and it was not successful, make sure postfix &amp; sendmail are both installed and set correctly on your server, and try to run the following command from your terminal:
+        </p>
+<pre>service sendmail restart</pre>
+        <p>
+            You may also want to edit php.ini to allow your system to send emails. More information on this matter can be found in www.php.net
+        </p>
+
+        <h2>SSH Keys</h2>
+        <p>
+            Copy and paste your private key in the provided field and save it.<br/>
+            You will see your generated public key in the field below.<br/>
+            Your private key should be in ~/.ssh/id_rsa
+        </p>
+        <p>
+            Setup your remote target machines to accept SSH public key authentication to enable backups.
+            <ol style="font-weight: 300; font-family: Open Sans, sans-serif; font-size:16px;">
+                <li>Login to the target machine</li>
+                <li>Add the public key to the authorized keys file for the backup user (this account will be used for running the backup scripts on this machine)</li>
+                <li>vi ~/.ssh/authorized_keys</li>
+                <li>Ensure you have proper permissions on your .ssh folder</li>
+                <li>chmod -R 600 ~/.ssh</li>
+            </ol>
+        </p>
+
+        <h2>Run Backups via command line</h2>
+		<p># This will look for active backups that need to be ran right now, and run them in the background. You will want to create a cronjob to run this command every minute.</p>
+        <pre>php app/console backsyst:backups:trigger</pre>
+        <p># This will run a single backup</p>
+        <pre>php app/console backsyst:backup:run [backup ID]</pre>
+        <p># Example of cronjob line from your /etc/crontab file:</p>
+        <pre>* * * * * backupuser php /var/www/backup/app/console backsyst:backups:trigger</pre>
+    </div>
+
+{% endblock %}

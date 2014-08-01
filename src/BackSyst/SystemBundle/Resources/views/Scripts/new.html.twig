@@ -1,0 +1,52 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_scripts') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">New Script</h1>
+		</div>
+		
+	</header>
+	<div class="inner-content-wrapper">
+		{% if error is defined %}
+			<p class="error-state"><i class="fa fa-exclamation-triangle"></i> {{ error }}</p>
+		{% endif %}
+
+		{{ form_start (form, {'attr' :{'class' : 'form-content'}}) }}
+			
+			{% if not form_errors(form.title) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i> You must enter a title.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="title" class="form-content__label">title:</label>
+				{{ form_widget (form.title, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Script Title'}}) }}
+			</div>
+
+			<div class="form-content__wrapper">
+				<label for="description" class="form-content__label">description:</label>
+				{{ form_widget (form.description, {'attr' :{'class' : 'form-content__input', 'id': 'description', 'placeholder': 'Script Description'}}) }}
+			</div>
+			
+			{% if not form_errors(form.script) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i> You must enter a script.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="script" class="form-content__label">script:</label>
+				{{ form_widget (form.script, {'attr' :{'class' : 'form-content__input--large', 'id': 'script', 'placeholder': 'Script'}}) }}
+			</div>
+
+			{{ form_widget (form.button, {'attr' :{'class' : 'form-content__buttons--single', 'value': 'Save'}}) }}
+
+		{{ form_end (form)}}
+		{# <form class="form-content" action={{ path('update_script') }} method="POST">
+			<p class="display">script id: {{script.id}}</p>
+			
+			
+			
+			<button class="right button-large" type="submit">Save</button>
+		</form> #}
+	</div>
+
+{% endblock %}

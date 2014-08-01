@@ -1,0 +1,51 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+	
+	<header class="inner-header">
+		<div class="left">
+			<a class="inner-header__back" href="{{ path('list_machines') }}"><i class="fa fa-angle-left"></i></a>
+			<h1 class="inner-header__title">Edit Remote Machine</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('delete_machine', {'id': machine.id}) }}"><i class="fa fa-trash-o"></i> Delete Machine</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		{{ form_start (form, {'attr' :{'class' : 'form-content'}}) }}
+			
+			{% if not form_errors(form.name) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must enter a name.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="name" class="form-content__label">name:</label>
+				{{ form_widget (form.name, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Machine Name'}}) }}
+			</div>
+
+			{% if not form_errors(form.host) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must provide the host address.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="host" class="form-content__label">host:</label>
+				{{ form_widget (form.host, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Machine Host'}}) }}
+			</div>
+
+			{% if not form_errors(form.user) is empty %}
+				<p class="error-state"><i class="fa fa-exclamation-triangle"></i>You must provide a user.</p>
+			{% endif %}
+			<div class="form-content__wrapper">
+				<label for="user" class="form-content__label">user:</label>
+				{{ form_widget (form.user, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Machine User'}}) }}
+			</div>
+
+			<div class="form-content__wrapper">
+				<label for="description" class="form-content__label">description:</label>
+				{{ form_widget (form.description, {'attr' :{'class' : 'form-content__input', 'placeholder': 'Machine Description'}}) }}
+			</div>
+			
+			{{ form_widget (form.button, {'attr' :{'class' : 'form-content__buttons--single', 'value': 'Save'}}) }}
+		{{ form_end (form)}}
+	</div>
+	
+
+{% endblock %}

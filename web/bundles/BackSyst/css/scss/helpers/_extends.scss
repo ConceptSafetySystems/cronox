@@ -1,0 +1,20 @@
+/*=======================================
+=            Font Controller            =
+=======================================*/
+%default-font-config{
+	font-family: $font-body;
+	font-weight: 300;
+	font-size: 16px;
+}
+
+%button-large{
+	min-width: 200px;
+}
+
+%left{
+	float: left;
+}
+
+%right{
+	float: right;
+}

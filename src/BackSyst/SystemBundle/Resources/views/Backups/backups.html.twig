@@ -1,0 +1,51 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			{# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+			<h1 class="inner-header__title">Backups</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('new_backup') }}"><i class="fa fa-plus"></i> Schedule New Backup</a>
+		</div>
+		
+	</header>
+	<div class="inner-content-wrapper">
+		{% if backups %}
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+				{% for backup in backups %}
+					<tr>
+						<td>{{backup.id}}</td>
+						<td>{{backup.title}}</td>
+						<td>{{backup.description}}</td>
+						<td>
+							<a class="table__actions" href="{{ path( 'edit_info_backup', { 'id': backup.id }) }}">Edit</a>
+							<a class="table__actions" href="{{ path('run_script', {'id': backup.id}) }}">Run Now</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<div class="empty-state">
+				<h3>You have no backups.</h3>
+			</div>
+		{% endif %}
+	</div>
+	<script>
+		{% if success == false %}
+			var errors = "";
+			{% for error in errors%}
+				errors += "{{ error }}\n\n"
+			{% endfor %}
+			alert(errors);
+		{% endif %}
+	</script>
+{% endblock %}

@@ -1,0 +1,149 @@
+back_syst_system:
+    resource: "@BackSystSystemBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# Default
+home:
+    path:    /
+    defaults: { _controller: BackSystSystemBundle:Reports:index }
+
+login_settings:
+    path:  /settings/login
+    defaults: { _controller: BackSystSystemBundle:Default:loginSettingsPage }
+
+login_settings_update:
+    path:  /settings/login/update
+    defaults: { _controller: BackSystSystemBundle:Default:loginSettingsUpdate }
+
+notifications:
+    path: /notifications
+    defaults: { _controller: BackSystSystemBundle:Default:notificationsPage }
+
+ajax_test_email:
+    path: /test/email
+    defaults: { _controller: BackSystSystemBundle:Default:testEmail }
+
+# Documentation
+doc_main:
+    path: /doc
+    defaults: { _controller: BackSystSystemBundle:Default:documentation }
+
+# Auth
+login_action:
+    path:   /auth
+    defaults: { _controller: BackSystSystemBundle:Auth:auth }
+
+logout:
+    path:  /logout
+    defaults: { _controller: BackSystSystemBundle:Auth:logout }
+
+init_page:
+    path:   /init
+    defaults: { _controller: BackSystSystemBundle:Auth:init }
+
+init_save:
+    path:   /init/save
+    defaults: { _controller: BackSystSystemBundle:Auth:saveAdminCredentials }
+
+login_forgot:
+    path:  /auth/forgot
+    defaults: { _controller: BackSystSystemBundle:Auth:forgot }
+
+# Scripts
+
+edit_script:
+    path:  /script/edit/{id}
+    defaults: { _controller: BackSystSystemBundle:Scripts:edit, id:0 }
+
+list_scripts:
+    path:  /scripts
+    defaults: { _controller: BackSystSystemBundle:Scripts:index }
+
+delete_script:
+    path: /script/delete?script={id}
+    defaults: { _controller: BackSystSystemBundle:Scripts:delete }
+
+# Backups
+edit_info_backup:
+    path: /backups/info/edit/{id}/{triedRun}
+    defaults: { _controller: BackSystSystemBundle:Backups:editInfoPage, triedRun:0 }
+
+list_backups:
+    path:  /backups/{success}/{errors}
+    defaults: { _controller: BackSystSystemBundle:Backups:index, success: 1, errors: "a" }
+
+new_backup:
+    path: /backup/new
+    defaults: { _controller: BackSystSystemBundle:Backups:new }
+
+add_backup:
+    path: /backup/add
+    defaults: { _controller: BackSystSystemBundle:Backups:add }
+
+run_script:
+    path: /backup/test/run/{id}
+    defaults: { _controller: BackSystSystemBundle:Backups:run, id:0}
+
+delete_backup:
+    path: /backup/delete/{id}
+    defaults: { _controller: BackSystSystemBundle:Backups:delete, id:0 }
+
+# Remote Machines
+list_machines:
+    path:  /machines
+    defaults: { _controller: BackSystSystemBundle:RemoteMachines:index }
+
+edit_machine:
+    path: /machine/edit/{id}
+    defaults: { _controller: BackSystSystemBundle:RemoteMachines:edit, id:0 }
+
+delete_machine:
+    path: /machine/delete?machine={id}
+    defaults: { _controller: BackSystSystemBundle:RemoteMachines:delete }
+
+test_connection_machine:
+    path: /machine/ssh/test?machine={id}
+    defaults: { _controller: BackSystSystemBundle:RemoteMachines:testConnection }
+
+# Security
+private_key:
+    path: /ssh/id_rsa
+    defaults: { _controller: BackSystSystemBundle:Security:index }
+
+update_private_key:
+    path: /ssh/id_rsa/update
+    defaults: { _controller: BackSystSystemBundle:Security:updatePrivateKey }
+
+authorize_host:
+    path: /ssh/auth_host
+    defaults: { _controller: BackSystSystemBundle:Security:didAuthorizeHost }
+
+ajax_pkey_gen:
+    path: /ajax/pkeygen
+    defaults: { _controller: BackSystSystemBundle:Security:generatePrivateKey }
+
+# Reports
+list_reports:
+    path: /status
+    defaults: { _controller: BackSystSystemBundle:Reports:index }
+
+history_report:
+    path: /history/{id}
+    defaults: { _controller: BackSystSystemBundle:Reports:history, id:0 }
+
+detail_report:
+    path: /status/{id}
+    defaults: { _controller: BackSystSystemBundle:Reports:detailsPage, id:0 }
+
+delete_report:
+    path: /status/delete/{id}
+    defaults: { _controller: BackSystSystemBundle:Reports:delete, id:0 }
+
+read_full_output:
+    path: /status/output/{id}
+    defaults: { _controller: BackSystSystemBundle:Reports:readFullOutput, id:0 }
+
+# Tests
+test:
+    path: /test
+    defaults: { _controller: BackSystSystemBundle:Backups:test }

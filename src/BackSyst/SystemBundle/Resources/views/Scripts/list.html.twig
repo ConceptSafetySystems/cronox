@@ -1,0 +1,41 @@
+{% extends 'BackSystSystemBundle:Default:index.html.twig' %}
+
+{% block content %}
+
+	<header class="inner-header">
+		<div class="left">
+			{# <a class="inner-header__back" href="{{ path('home') }}"><i class="fa fa-angle-left"></i></a> #}
+			<h1 class="inner-header__title">Scripts</h1>
+		</div>
+		<div class="right">
+			<a class="inner-header__actions" href="{{ path('edit_script') }}"><i class="fa fa-plus"></i> Add New Script</a>
+		</div>
+	</header>
+	<div class="inner-content-wrapper">
+		{% if scripts %}
+			<table>
+				<tr>
+					<th>Id</th>
+					<th width="150">Title</th>
+					<th>Description</th>
+					<th width="150">Actions</th>
+				</tr>
+				{% if scripts is defined %}
+					{% for script in scripts %}
+						<tr>
+							<td>{{script.id}}</td>
+							<td>{{script.title}}</td>
+							<td>{{script.description}}</td>
+							<td><a href="{{ path('edit_script', { 'id': script.id }) }}">Edit</a></td>
+						</tr>
+					{% endfor %}
+				{% endif %}
+			</table>
+		{% else %}
+			<div class="empty-state">
+				<h3>You have no scripts.</h3>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}

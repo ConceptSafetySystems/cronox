@@ -1,0 +1,37 @@
+.sidebar{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	li{
+		border-top: 1px solid $lighter-grey;
+
+		&:first-child{
+			border-top: none;
+		}
+
+		a{
+			display: block;
+			padding: 15px;
+
+			background: white;
+
+			font-family: $font-body;
+			font-weight: 300;
+			font-size: 20px;
+			color: $darker-grey;
+
+			@include transition ( background color 0.3s ease-in-out );
+
+			&:hover{
+				background: $brand-color;
+				color: white;
+			}
+
+
+			i{
+				margin-right: 10px;
+			}
+		}
+	}
+}

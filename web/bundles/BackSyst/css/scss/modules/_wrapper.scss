@@ -1,0 +1,59 @@
+/*=======================================
+=            Wrapper Classes            =
+=======================================*/
+.wrapper{
+	display: block;
+	width: $wrapper-width;
+	min-width: $wrapper-min-width;
+	
+	padding: 20px;
+}
+
+.wrapper__header{
+	margin-bottom: 20px;
+	padding: 20px;
+	background: white;
+
+	@include clearfix;
+
+	.wrapper__header--title{
+		display: inline-block;
+		float: left;
+		margin: 0;
+	}
+}
+
+.wrapper__footer{
+	
+}
+
+.wrapper__content{
+
+}
+
+.wrapper__content--sidebar{
+	float: left;
+	width: $content-sidebar-width;
+	min-width: $content-sidebar-min-width;
+}
+
+.wrapper__content--inner{
+	float: right;
+	width: $content-inner-width;
+
+	margin-left: 100 - $content-inner-width - $content-sidebar-width;
+	margin-bottom: 20px;
+
+	background: white;
+}
+
+/*===================================================
+=            Content Block Wrapper Class            =
+===================================================*/
+.inner-content-wrapper{
+	padding: 0 20px;
+	margin-bottom: 20px;
+	@include clearfix;
+}
+
+
